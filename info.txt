@@ -1,17 +1,26 @@
 echo -e "deb https://http.kali.org/kali kali-rolling main non-free contrib" > /etc/apt/sources.list
-echo -e "options psmouse proto=imps" > /etc/modprobe.d/TouchPad.conf
+#echo -e "options psmouse proto=imps" > /etc/modprobe.d/TouchPad.conf
 apt update && apt full-upgrade -y #oбновление
 apt-get autoremove -y
 
-apt-get install python-pip python-dev build-essential doublecmd-gtk grub-customizer sslstrip bettercap lighttpd isc-dhcp-server hostapd asleap mdk4 beef hostapd-wpe fruitywifi-module-dnsspoof beef-xss -y
+apt-get install kate xclip python-pip python-dev build-essential doublecmd-gtk grub-customizer sslstrip bettercap lighttpd isc-dhcp-server hostapd asleap mdk4 beef hostapd-wpe fruitywifi-module-dnsspoof beef-xss -y
 
-#apt-get install libreoffice
+apt-get install libreoffice
+
+#hashcat
+apt-get install ocl-icd-libopencl1 opencl-headers clinfo
+apt install nvidia-opencl-icd
+
+#Если проблема с ядрами и отсутсвием файлов for module i915
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+затем копируем недостающий файлы командой(меняя название файла):
+cp ./linux-firmware/i915/icl_dmc_ver1_07.bin /lib/firmware/i915/icl_dmc_ver1_07.bin
 
 echo -e "[device] \nwifi.scan-rand-mac-address=yes \n[connection] \nwifi.cloned-mac-address=random \nethernet.cloned-mac-address=random" >> /etc/NetworkManager/conf.d/00-macrandomize.conf
 service network-manager restart
 
 #Tor
-temp="$(curl -s https://www.torproject.org/download/languages/)"; temp2=`echo "${temp}" | grep -E -o '[A-Za-z0-9/_.-]+.ru[.]tar.xz' | tail -n 1 | sed 's/..//'`; wget -O tor-browser-linux64.tar.xz "$temp2"; tar xvfJ tor-browser-linux64.tar.xz; rm tor-browser-linux64.tar.xz; sudo mv tor-browser*/Browser/ /opt/; rm -rf tor-browser*; sed -i 's/id -u/echo 1/' /opt/Browser/start-tor-browser; chown -hR root /opt/Browser/
+temp="$(curl -s https://www.torproject.org/download/languages/)"; temp2=`echo "${temp}" | grep -E -o '[A-Za-z0-9/_.-]+.ru[.]tar.xz' | tail -n 1`; wget -O tor-browser-linux64.tar.xz "https://www.torproject.org$temp2"; tar xvfJ tor-browser-linux64.tar.xz; rm tor-browser-linux64.tar.xz; sudo mv tor-browser*/Browser/ /opt/; rm -rf tor-browser*; sed -i 's/id -u/echo 1/' /opt/Browser/start-tor-browser; chown -hR root /opt/Browser/
 
 gedit Desktop/Tor_Browser.desktop
 
