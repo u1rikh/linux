@@ -3,9 +3,12 @@ echo -e "deb https://http.kali.org/kali kali-rolling main non-free contrib" > /e
 apt update && apt full-upgrade -y #oбновление
 apt-get autoremove -y
 
-apt-get install kate xclip python-pip python-dev build-essential doublecmd-gtk grub-customizer sslstrip bettercap lighttpd isc-dhcp-server hostapd asleap mdk4 beef hostapd-wpe fruitywifi-module-dnsspoof beef-xss -y
+apt-get install kate xclip python-pip python-dev build-essential doublecmd-gtk grub-customizer sslstrip bettercap lighttpd isc-dhcp-server hostapd asleap mdk4 beef hostapd-wpe fruitywifi-module-dnsspoof beef-xss python3-pip build-essential python3-dev libldap2-dev libsasl2-dev slapd ldap-utils lcov valgrind -y
 
 apt-get install libreoffice
+
+Tmux set config
+# tmux source-file ~/.tmux.conf
 
 #hashcat
 apt-get install ocl-icd-libopencl1 opencl-headers clinfo
